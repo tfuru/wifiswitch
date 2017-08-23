@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>WiFiSwitch サンプル</title>
+
+    <style media="screen">
+    * {
+        margin: 0;
+        padding: 0;
+        border: 0;
+    }
+    .btn{
+        display:block;
+        font-size:40px;
+        margin: 10px auto;
+        width:100%;
+    }
+
+    .container{
+        width:100%;
+        text-align: center;
+    }
+
+    .statusContainer{
+      border: 1px solid #c0c0c0;
+    }
+    #videoContainer{
+      width: 100%;
+      text-align: center;
+    }
+    </style>
+    <script src="https://www.youtube.com/iframe_api"></script>
+    <script src="https://www.gstatic.com/firebasejs/4.1.1/firebase.js"></script>
+
+    <script>
+      const $ = function(id){return document.getElementById(id);};
+      $.proxy = function(fn, context){
+          return function(){
+            return fn.apply(context, arguments);
+          };
+      };
+
+      class Index{
+
+        constructor(){
+          var config = {
+            apiKey: "AIzaSyDDd8heLSA1PqFtMwuvUKf4WgOqz1NCu2o",
+            authDomain: "wifiswitch-dev.firebaseapp.com",
+            databaseURL: "https://wifiswitch-dev.firebaseio.com",
+            projectId: "wifiswitch-dev",
+            storageBucket: "wifiswitch-dev.appspot.com",
+            messagingSenderId: "1093602878686"
+          };
+          firebase.initializeApp(config);
+
+          this.player = null;
+
+          //DB内容が変更されたとき実行される
+          var btn = firebase.database().ref("/btn");
+          btn.on("value", $.proxy(function(snapshot) {
+            $("btnBtnStatus").innerText = snapshot.val();
+            if($("btnBtnStatus").innerText == "false"){
+              $("btnBtnStatus").style.color = "red";
+              if(this.player != null) this.player.pauseVideo();
+            }else{
+              $("btnBtnStatus").style.color = "black";
+              if(this.player != null) this.player.playVideo();
+            }
+          },this));
+          var led = firebase.database().ref("/led");
+          led.on("value", function(snapshot) {
+            $("btnLedStatus").innerText = snapshot.val();
+            if($("btnLedStatus").innerText == "false"){
+              $("btnLedStatus").style.color = "red";
+            }else{
+              $("btnLedStatus").style.color = "black";
+            }
+          });
+        }
+
+        onload(){
+          console.log("onload");
+          $("btnLedOn").onclick = function(e){
+            var led = firebase.database().ref("/led");
+            led.set( true );
+          };
+          $("btnLedOff").onclick = function(e){
+            var led = firebase.database().ref("/led");
+            led.set( false );
+          };
+        }
+
+        onYouTubeIframeAPIReady(){
+          console.log("onYouTubeIframeAPIReady");
+          this.player = new YT.Player('player', {
+                    height: '360',
+                    width: '640',
+                    videoId: 'G87RHlWcDDA',
+                    events: {
+                      'onReady': onPlayerReady,
+                      'onStateChange': onPlayerStateChange
+                    }
+                  });
+        }
+
+        onPlayerReady(){
+          console.log("onPlayerReady");
+        }
+
+        onPlayerStateChange(){
+          console.log("onPlayerStateChange");
+        }
+      };
+
+      var index = new Index();
+      window.onload = index.onload;
+      window.onYouTubeIframeAPIReady = $.proxy(index.onYouTubeIframeAPIReady,index);
+      window.onPlayerReady = $.proxy(index.onPlayerReady,index);
+      window.onPlayerStateChange = $.proxy(index.onPlayerStateChange,index);
+    </script>
+  </head>
+  <body>
+    <ul>
+      <li class="statusContainer">
+        <p class="label">btn</p>
+        <p id="btnBtnStatus"> --- </p>
+        <p class="label">led</p>
+        <p id="btnLedStatus"> --- </p>
+      </li>
+      <li>
+        <p><input type="button" id="btnLedOn" value="LED ON" class="btn"></p>
+        <p><input type="button" id="btnLedOff" value="LED OFF" class="btn"></p>
+      </li>
+    </ul>
+    <div id="videoContainer">
+      <div id="player"></div>
+    </div>
+  </body>
+</html>
