@@ -31,6 +31,8 @@ void setup() {
   Serial.println(WiFi.localIP());
   
   Firebase.begin(FIREBASE_HOST, FIREBASE_AUTH);
+  Firebase.setBool("btn", false);
+  Firebase.setBool("led", false);
 }
 
 void loop() {
@@ -54,11 +56,7 @@ void loop() {
   //スイッチ状態をみて Firebase に書き込む
   if(digitalRead(SW) == LOW){
     Serial.println("SW ON");
-    Firebase.setBool("btn", true);
+    Firebase.setBool("btn", !Firebase.getBool("btn") );
     delay(1000);
-  }
-  else{
-    Serial.println("SW OFF");
-    Firebase.setBool("btn", false);
   }
 }

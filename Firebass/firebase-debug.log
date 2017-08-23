@@ -1,0 +1,27 @@
+[debug] ----------------------------------------------------------------------
+[debug] Command:      /usr/local/bin/node /usr/local/bin/firebase serve
+[debug] CLI Version:  3.6.1
+[debug] Platform:     darwin
+[debug] Node Version: v7.9.0
+[debug] Time:         Wed Aug 23 2017 17:58:49 GMT+0900 (JST)
+[debug] ----------------------------------------------------------------------
+[debug] 
+[debug] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] >>> HTTP REQUEST GET https://admin.firebase.com/v1/projects/wifiswitch-dev  
+ Wed Aug 23 2017 17:58:49 GMT+0900 (JST)
+[debug] <<< HTTP RESPONSE 200
+[debug] >>> HTTP REQUEST GET https://admin.firebase.com/v1/database/wifiswitch-dev/tokens  
+ Wed Aug 23 2017 17:58:50 GMT+0900 (JST)
+[debug] <<< HTTP RESPONSE 200
+[info] Starting Firebase development server...
+[info] 
+[info] Project Directory: /Users/furukawanobuyuki/work/TUKUDDO/ワークショップ/WiFiSwitch/Firebass
+[debug] >>> HTTP REQUEST GET https://cloudresourcemanager.googleapis.com/v1/projects/wifiswitch-dev  
+ Wed Aug 23 2017 17:58:52 GMT+0900 (JST)
+[debug] <<< HTTP RESPONSE 200
+[debug] >>> HTTP REQUEST GET https://mobilesdk-pa.googleapis.com/v1/projects/1093602878686/clients/_:getWebAppConfig  
+ Wed Aug 23 2017 17:58:53 GMT+0900 (JST)
+[debug] <<< HTTP RESPONSE 200
+[info] Public Directory: public
+[info] 
+[info] Server listening at: http://localhost:5000
