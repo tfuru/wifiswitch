@@ -9,6 +9,8 @@
 #define LED 4
 #define SW 0
 
+#define IO2 2
+
 void setup() {
   Serial.begin(115200);
 
@@ -18,6 +20,10 @@ void setup() {
   
   //スイッチを入力として初期化
   pinMode(SW,INPUT);
+  
+  //SWの端子をHIGHにするため IO2を出力に設定
+  pinMode(IO2,OUTPUT);
+  digitalWrite(IO2,HIGH);
   
   // connect to wifi.
   WiFi.begin(WIFI_SSID, WIFI_PASSWORD);
