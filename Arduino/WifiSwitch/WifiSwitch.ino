@@ -3,7 +3,7 @@
 
 #define FIREBASE_HOST "wifiswitch-dev.firebaseio.com"
 #define FIREBASE_AUTH "vLsS7UB5Vag2v4dm10wqvLxrRSBprMTlMHg5ssz3"
-#define WIFI_SSID "tukuddo-guest-2.4"
+#define WIFI_SSID "tukuddo-guest"
 #define WIFI_PASSWORD "monotukuddo"
 
 #define LED 4
